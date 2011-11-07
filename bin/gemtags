@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'gemtags'
+require 'bundler'
+
+Gemtags::Command.new.run
