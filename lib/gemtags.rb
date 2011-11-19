@@ -15,7 +15,7 @@ module Gemtags
 
       tags_file    = ".gemtags"
       opts         = "--extra=+f -R -f #{tags_file}"
-      exclude_dirs = "--exclude=#{File.expand_path('.')}/* --exclude=.git --exclude=log --exclude=.svn"
+      exclude_dirs = "--exclude=#{File.expand_path('.')}/* --exclude=.min.js --exclude=.git --exclude=log --exclude=.svn"
       ctag_paths   = "#{bundler_paths.map {|x| x + '/*'}.join(' ')}"
       command      = "ctags #{opts} #{exclude_dirs} #{ctag_paths} 2> /dev/null"
 
