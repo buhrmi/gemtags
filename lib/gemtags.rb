@@ -1,4 +1,5 @@
 require "gemtags/version"
+require 'rbconfig'
 
 module Gemtags
   class Command
@@ -17,11 +18,18 @@ module Gemtags
       opts         = "--extra=+f -R -f #{tags_file}"
       exclude_dirs = "--exclude=#{File.expand_path('.')}/* --exclude=*.js --exclude=.git --exclude=log --exclude=.svn"
       ctag_paths   = "#{bundler_paths.map {|x| x + '/*'}.join(' ')}"
-      command      = "ctags #{opts} #{exclude_dirs} #{ctag_paths} 2> /dev/null"
+      command      = "ctags #{opts} #{exclude_dirs} #{ctag_paths} 2> " + (::OS.windows? ? "NUL" : "/dev/null")
 
       puts "Processing ctags..."
       system command
       puts "Wrote ctags to '#{tags_file}'"
     end
+  end
+end
+
+module OS
+  module_function
+  def windows?
+    /mswin|win|mingw/ === RbConfig::CONFIG['host_os']
   end
 end
